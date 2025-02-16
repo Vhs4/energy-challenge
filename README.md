@@ -1,36 +1,141 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Contato
 
-## Getting Started
+Se precisar de suporte, entre em contato pelo e-mail: [contatovhs4@gmail.com](mailto:contatovhs4@gmail.com).
 
-First, run the development server:
+# Front-end
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- Variável de ambiente obrigatória: `NEXT_PUBLIC_API_BASE_URL`
+
+## Requisitos
+
+- Node.js (versão recomendada: 18+)
+- NPM ou Yarn
+
+## Instalação
+
+1. Clone este repositório:
+   ```sh
+   git clone https://github.com/Vhs4/energy-challenge.git
+   ```
+
+2. Acesse a pasta do projeto:
+   ```sh
+   cd nome-do-projeto
+   ```
+
+3. Instale as dependências:
+   ```sh
+   npm install
+   # ou
+   yarn install
+   ```
+
+## Executando o Projeto
+
+Para iniciar o servidor de desenvolvimento, execute:
+   ```sh
+   npm run dev
+   # ou
+   yarn dev
+   ```
+
+O projeto estará disponível em: [http://localhost:3000](http://localhost:3000)
+
+## Build para Produção
+
+Para gerar os arquivos otimizados para produção, utilize:
+   ```sh
+   npm run build
+   # ou
+   yarn build
+   ```
+
+## Tecnologias Utilizadas
+
+- Next.js
+- React
+- Tailwind CSS
+- TypeScript
+- ShadCN
+
+# Back-end
+
+- Variável de ambiente obrigatória: `DATABASE_URL`
+
+```
+docker-compose up --build
+```
+## Após isso
+```
+docker-compose exec backend npx prisma migrate dev
+docker-compose exec backend npm run prisma:seed
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### O back-end estará disponível em `http://localhost:3001`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Todas as rotas do back-end:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **Listar todos os fornecedores (GET)**
+URL: `http://localhost:3001/api/suppliers`
 
-## Learn More
+Parâmetros de query opcionais:
 
-To learn more about Next.js, take a look at the following resources:
+1. `consumption`: Filtra fornecedores por consumo mínimo
+2. `page`: Número da página (padrão: 1)
+3. `perPage`: Itens por página (padrão: 6)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Exemplo: `http://localhost:3001/api/suppliers?consumption=10000&page=1&perPage=10`
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2. **Obter um fornecedor específico (GET)**
+URL: `http://localhost:3001/api/suppliers/:id`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Exemplo: `http://localhost:3001/api/suppliers/1`
+
+
+3. **Criar um novo fornecedor (POST)**
+URL: `http://localhost:3001/api/suppliers`
+
+JSON para teste:
+
+```json
+{
+  "name": "Nova Energia",
+  "logo": "/placeholder.svg?height=80&width=80",
+  "state": "Santa Catarina",
+  "costPerKWh": 0.54,
+  "minKWh": 12000,
+  "totalCustomers": 35000,
+  "averageRating": 4.6,
+  "whatsapp": "5548999999906"
+}
+```
+
+**Atualizar um fornecedor existente (PUT)**
+URL: `http://localhost:3001/api/suppliers/:id`
+
+Exemplo: `http://localhost:3001/api/suppliers/1`
+
+JSON para teste:
+
+```json
+{
+  "name": "EcoEnergy Atualizada",
+  "costPerKWh": 0.56,
+  "totalCustomers": 55000,
+  "averageRating": 4.7
+}
+```
+
+**Excluir um fornecedor (DELETE)**
+URL: `http://localhost:3001/api/suppliers/:id`
+
+Exemplo: `http://localhost:3001/api/suppliers/1`
+
+
+Para testar a filtragem por consumo e paginação, você pode usar:
+
+```plaintext
+http://localhost:3001/api/suppliers?consumption=10000&page=1&perPage=10
+```
