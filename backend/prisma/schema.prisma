@@ -1,0 +1,21 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Supplier {
+  id             Int    @id @default(autoincrement())
+  name           String
+  logo           String
+  state          String
+  costPerKWh     Float
+  minKWh         Int
+  totalCustomers Int
+  averageRating  Float
+  whatsapp       String
+}
+

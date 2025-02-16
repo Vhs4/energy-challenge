@@ -1,0 +1,24 @@
+{
+  "name": "energy-suppliers-bff",
+  "version": "1.0.0",
+  "description": "Back-end for Front-end for Energy Suppliers",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "build": "npx prisma generate && npx prisma db push && npx prisma migrate deploy && npm run prisma:seed",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:seed": "node prisma/seed.js"
+  },
+  "dependencies": {
+    "@prisma/client": "6.3.1",
+    "cors": "2.8.5",
+    "energy-suppliers-bff": "file:",
+    "express": "5.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "3.1.9",
+    "prisma": "6.3.1"
+  }
+}
