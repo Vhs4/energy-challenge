@@ -1,11 +1,13 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import Link from "next/link"
 import { EnergyForm } from "./components/EnergyForm"
 import { SupplierCard } from "./components/SupplierCard"
 import { Pagination } from "./components/Pagination"
 import { fetchSuppliers } from "./api/api"
 import type { Supplier } from "./data/suppliers"
+import { Button } from "@/components/ui/button"
 
 export default function Home() {
   const [consumption, setConsumption] = useState<number | null>(null)
@@ -41,6 +43,13 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-100 to-green-100">
+      <nav className="bg-white shadow-md">
+        <div className="container mx-auto px-4 py-4 flex justify-end">
+          <Link href="/fornecedores">
+            <Button>Todos fornecedores</Button>
+          </Link>
+        </div>
+      </nav>
       <main className="container mx-auto px-4 py-8">
         <h1 className="text-4xl font-bold text-center mb-8">Encontre seu Fornecedor de Energia</h1>
         <div className="max-w-md mx-auto mb-12">
